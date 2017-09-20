@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project activeEnvironment="Default" name="SoapuiProject-ubs-order-management-system" soapui-version="5.2.1" abortOnError="false" runType="SEQUENTIAL" resourceRoot="" id="ff1ae1a2-4def-429d-bc4f-88f50f5502ae" xmlns:con="http://eviware.com/soapui/config"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.actions.iface.tools.soapui.TestRunnerAction@values-local"><![CDATA[<xml-fragment xmlns:con="http://eviware.com/soapui/config">
+  <con:entry key="Environment" value="Default"/>
+  <con:entry key="Global Properties" value=""/>
+  <con:entry key="TestSuite" value="FrontTier"/>
+  <con:entry key="Password" value=""/>
+  <con:entry key="TestRunner Path" value=""/>
+  <con:entry key="Tool Args" value=""/>
+  <con:entry key="Ignore Errors" value="false"/>
+  <con:entry key="Host:Port" value=""/>
+  <con:entry key="user-settings.xml Password" value=""/>
+  <con:entry key="WSS Password Type" value=""/>
+  <con:entry key="Save Project" value="false"/>
+  <con:entry key="Enable UI" value="false"/>
+  <con:entry key="System Properties" value=""/>
+  <con:entry key="Domain" value=""/>
+  <con:entry key="Coverage Report" value="false"/>
+  <con:entry key="Export JUnit Results" value="false"/>
+  <con:entry key="Export JUnit Results with test properties" value="false"/>
+  <con:entry key="Open Report" value="false"/>
+  <con:entry key="Project Properties" value=""/>
+  <con:entry key="Export All" value="false"/>
+  <con:entry key="Project Password" value=""/>
+  <con:entry key="Report Format(s)" value=""/>
+  <con:entry key="TestCase" value="&lt;all>"/>
+  <con:entry key="Print Report" value="false"/>
+  <con:entry key="Username" value=""/>
+  <con:entry key="Root Folder" value=""/>
+  <con:entry key="Save After" value="false"/>
+  <con:entry key="Add Settings" value="false"/>
+  <con:entry key="Endpoint" value=""/>
+  <con:entry key="Select Report Type" value=""/>
+</xml-fragment>]]></con:setting></con:settings><con:testSuite name="RestServices" id="b27b66ea-69fe-475b-bc39-e49f3dc89e6e"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="TestCommon" searchProperties="true" id="cfafb8b1-811a-438a-b11f-b8ffc1049b52"><con:settings/><con:testStep type="groovy" name="Global_Properties" id="0c4335e1-06b6-4701-bdee-bfb24d906a40"><con:settings/><con:config><script>import javax.naming.Context
+gp = com.eviware.soapui.model.propertyexpansion.PropertyExpansionUtils.globalProperties
+gp.clear
+
+// local
+host="http://localhost:8080"
+//host="http://192.168.30.2:8080"
+//host="http://127.0.0.3:8080"
+
+// set global properties
+gp.setPropertyValue("host", host)
+
+log.info("host="+gp.getPropertyValue("host"))
+</script></con:config></con:testStep><con:loadTest id="8c0bd6bf-c094-4530-8bcd-bd35dc8a4697" name="LoadTest 1"><con:settings/><con:threadCount>5</con:threadCount><con:startDelay>0</con:startDelay><con:sampleInterval>250</con:sampleInterval><con:calculateTPSOnTimePassed>true</con:calculateTPSOnTimePassed><con:resetStatisticsOnThreadCountChange>true</con:resetStatisticsOnThreadCountChange><con:historyLimit>-1</con:historyLimit><con:testLimit>60</con:testLimit><con:limitType>TIME</con:limitType><con:loadStrategy><con:type>Simple</con:type></con:loadStrategy><con:assertion type="Step Status" name="Step Status"/><con:maxAssertionErrors>100</con:maxAssertionErrors><con:cancelExcessiveThreads>true</con:cancelExcessiveThreads><con:strategyInterval>500</con:strategyInterval></con:loadTest><con:properties/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="order-management-system-rest" searchProperties="true" id="bb9131e8-e1ca-4d9b-9c54-53f680a8a345"><con:settings/><con:testStep type="calltestcase" name="Run TestCommon" id="86bc198b-0aab-4287-84d5-1206ecf1c514"><con:settings/><con:config xsi:type="con:RunTestCaseStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:targetTestCase>cfafb8b1-811a-438a-b11f-b8ffc1049b52</con:targetTestCase><con:properties/><con:returnProperties/><con:runMode>PARALLELL</con:runMode></con:config></con:testStep><con:testStep type="httprequest" name="/user/register" id="a8fd31f4-fa1e-4dd4-84fa-8b7fd4aa7451"><con:settings/><con:config method="POST" xsi:type="con:HttpRequest" id="5470d63f-d1a7-4fc0-838a-38d6ad0227a3" name="/user/register" downloadIncludedResources="false" postQueryString="false" mediaType="" timeout="" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="Content-Type" value="application/json" xmlns="http://eviware.com/soapui/config"/></con:setting><con:setting id="com.eviware.soapui.impl.support.AbstractHttpRequest@follow-redirects">true</con:setting></con:settings><con:encoding/><con:endpoint>${host}/oms/services/user/register</con:endpoint><con:request>{
+	"username": "user4",
+	"password": "pass4",
+	"company": "company 4",
+	"firstName": "first name 4",
+	"lastName": "last name 4"
+}</con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:config></con:testStep><con:testStep type="httprequest" name="/user/login" id="d92aedc0-d60e-4931-a55c-75d88e1c5b43"><con:settings/><con:config method="POST" xsi:type="con:HttpRequest" id="5470d63f-d1a7-4fc0-838a-38d6ad0227a3" name="/user/login" downloadIncludedResources="false" postQueryString="false" mediaType="" timeout="" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="Content-Type" value="application/json" xmlns="http://eviware.com/soapui/config"/></con:setting><con:setting id="com.eviware.soapui.impl.support.AbstractHttpRequest@follow-redirects">true</con:setting></con:settings><con:encoding/><con:endpoint>${host}/oms/services/user/login</con:endpoint><con:request>{
+	"username": "user4",
+	"password": "pass4",
+	"company": "company4"
+}</con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:config></con:testStep><con:testStep type="httprequest" name="/product" id="79fa3ea5-618a-4f08-bf97-0e4b8775f282"><con:settings/><con:config method="POST" xsi:type="con:HttpRequest" id="5470d63f-d1a7-4fc0-838a-38d6ad0227a3" name="/product" downloadIncludedResources="false" postQueryString="false" mediaType="" timeout="" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="Content-Type" value="application/json" xmlns="http://eviware.com/soapui/config"/></con:setting><con:setting id="com.eviware.soapui.impl.support.AbstractHttpRequest@follow-redirects">true</con:setting></con:settings><con:encoding/><con:endpoint>${host}/oms/services/product</con:endpoint><con:request>{
+"token": "djtkiZTuRoTMnpiLSoorsORRlNAokdXtIOQVz6eVsAU="
+}</con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:config></con:testStep><con:testStep type="httprequest" name="/user/placeorder" id="104cda4e-3a40-4d2f-a621-bb52dac96a37"><con:settings/><con:config method="POST" xsi:type="con:HttpRequest" id="5470d63f-d1a7-4fc0-838a-38d6ad0227a3" name="/user/placeorder" downloadIncludedResources="false" postQueryString="false" mediaType="" timeout="" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="Content-Type" value="application/json" xmlns="http://eviware.com/soapui/config"/></con:setting><con:setting id="com.eviware.soapui.impl.support.AbstractHttpRequest@follow-redirects">true</con:setting></con:settings><con:encoding/><con:endpoint>${host}/oms/services/user/placeorder</con:endpoint><con:request>{
+	"token": "djtkiZTuRoTMnpiLSoorsORRlNAokdXtIOQVz6eVsAU=",
+	"order": {
+		"productId": 4,
+		"type": "buy",
+		"price": 100.6,
+		"quantity": 1
+	}
+}</con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:config></con:testStep><con:testStep type="httprequest" name="/user/orders" id="dbbdf3e3-def3-4036-b89e-43d932335f50"><con:settings/><con:config method="POST" xsi:type="con:HttpRequest" id="5470d63f-d1a7-4fc0-838a-38d6ad0227a3" name="/user/orders" downloadIncludedResources="false" postQueryString="false" mediaType="" timeout="" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="Content-Type" value="application/json" xmlns="http://eviware.com/soapui/config"/></con:setting><con:setting id="com.eviware.soapui.impl.support.AbstractHttpRequest@follow-redirects">true</con:setting></con:settings><con:encoding/><con:endpoint>${host}/oms/services/user/orders</con:endpoint><con:request> { "token": "djtkiZTuRoTMnpiLSoorsORRlNAokdXtIOQVz6eVsAU=" }</con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:config></con:testStep><con:properties/></con:testCase><con:properties><con:property><con:name>host</con:name><con:value>edd.com</con:value></con:property></con:properties></con:testSuite><con:properties><con:property><con:name>PropertyName</con:name><con:value>PropertyValue</con:value></con:property><con:property><con:name>host</con:name><con:value>edd.com</con:value></con:property></con:properties><con:wssContainer/><con:oAuth2ProfileContainer/><con:sensitiveInformation/></con:soapui-project>

@@ -1,0 +1,11 @@
+table, th, td 
+{
+		margin:0px 0;
+		border:solid 0px #333;
+		padding:5px 10px;
+		font:18px Tahoma;
+}
+th {
+		font-weight:bold;
+}
+

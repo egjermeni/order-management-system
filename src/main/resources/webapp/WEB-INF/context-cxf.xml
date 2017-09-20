@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:cxf="http://cxf.apache.org/core"
+       xmlns:jaxws="http://cxf.apache.org/jaxws"
+       xmlns:jaxrs="http://cxf.apache.org/jaxrs"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans 
+       http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+       http://cxf.apache.org/core
+       http://cxf.apache.org/schemas/core.xsd
+       http://cxf.apache.org/jaxws
+       http://cxf.apache.org/schemas/jaxws.xsd
+       http://cxf.apache.org/jaxrs
+       http://cxf.apache.org/schemas/jaxrs.xsd">
+
+    <!-- Load CXF modules from cxf.jar -->
+    <import resource="classpath:META-INF/cxf/cxf.xml"/>
+    <import resource="classpath:META-INF/cxf/cxf-servlet.xml"/>
+ 
+    <cxf:bus>
+        <cxf:features>
+            <cxf:logging/>
+        </cxf:features>
+    </cxf:bus>
+ 	 
+    <!-- Exposing service as a rest service -->
+    <jaxrs:server id="restServer" address="/">
+        <jaxrs:serviceBeans>
+            <ref bean="OmsServicesRest"/>
+        </jaxrs:serviceBeans>
+
+		<jaxrs:providers>
+		   <bean class="org.codehaus.jackson.jaxrs.JacksonJsonProvider"/>
+		    <bean class="com.ubs.oms.mapper.ExceptionTransformer" />
+		</jaxrs:providers>
+
+	</jaxrs:server>
+ 
+</beans>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:cxf="http://cxf.apache.org/core"
+       xmlns:jaxws="http://cxf.apache.org/jaxws"
+       xmlns:jaxrs="http://cxf.apache.org/jaxrs"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans 
+       http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+       http://cxf.apache.org/core
+       http://cxf.apache.org/schemas/core.xsd
+       http://cxf.apache.org/jaxws
+       http://cxf.apache.org/schemas/jaxws.xsd
+       http://cxf.apache.org/jaxrs
+       http://cxf.apache.org/schemas/jaxrs.xsd"
+       default-autowire="byName">
+
+    <import resource="classpath:META-INF/cxf/cxf.xml"/>
+    <import resource="classpath:META-INF/cxf/cxf-servlet.xml"/>
+ 
+    <cxf:bus>
+        <cxf:features>
+            <cxf:logging/>
+        </cxf:features>
+    </cxf:bus>
+
+    <bean id="helloWorkflow" class="com.edd.example.workflow.HelloWorkflowImpl" autowire="autodetect"/>
+ 
+    <jaxrs:server id="restServer" address="/rest/">
+        <jaxrs:serviceBeans>
+            <ref bean="helloWorkflow"/>
+            <ref bean="accountWorkflow"/>
+        </jaxrs:serviceBeans>
+        <jaxrs:extensionMappings>
+            <entry key="feed" value="application/atom+xml"/>
+            <entry key="json" value="application/json"/>
+            <entry key="xml" value="application/xml"/>
+            <entry key="html" value="text/html"/>
+        </jaxrs:extensionMappings>
+    </jaxrs:server>
+ 
+ 
+    <bean id="jaxbBean" class="org.apache.cxf.jaxb.JAXBDataBinding" scope="prototype"/>
+ 
+    <bean id="jaxws-and-aegis-service-factory"
+          class="org.apache.cxf.jaxws.support.JaxWsServiceFactoryBean"
+          scope="prototype">
+        <property name="dataBinding" ref="jaxbBean"/>
+        <property name="serviceConfigurations">
+            <list>
+                <bean class="org.apache.cxf.jaxws.support.JaxWsServiceConfiguration"/>
+                <bean class="org.apache.cxf.aegis.databinding.AegisServiceConfiguration"/>
+                <bean class="org.apache.cxf.service.factory.DefaultServiceConfiguration"/>
+            </list>
+        </property>
+    </bean>
+ 
+    <jaxws:endpoint 
+    		id="helloWorkflowEndpoint"
+           	serviceName="HelloWorkflow"
+           	implementorClass="com.edd.example.workflow.HelloWorkflow"
+           	implementor="#helloWorkflow"
+           	address="/helloWorkflow">
+        <jaxws:serviceFactory>
+       		<ref bean="jaxws-and-aegis-service-factory"/>
+        </jaxws:serviceFactory>
+    </jaxws:endpoint>
+ 
+    <jaxws:endpoint 
+		id="accountWorkflowEndpoint"
+        serviceName="AccountWorkflow"
+        implementor="#accountWorkflow"
+        address="/account">
+         	
+  	<jaxws:serviceFactory>
+		<ref bean="jaxws-and-aegis-service-factory"/>
+		</jaxws:serviceFactory>
+    </jaxws:endpoint>
+ 
+</beans-->

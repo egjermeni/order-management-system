@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>-->
+	<script src="jquery-1.10.1.min.js"></script>
+	<script type="text/javascript" src="oms-commons.js"></script>
+	<link rel="stylesheet" type="text/css" href="oms-style.css"></link>		
+</head>
+<body>
+
+<form id="registartion_form">
+	<table>
+		<tr>
+			<th colspan="2">User Registartion Page</th>
+		</tr>
+		<tr>
+			<td>Username</td>
+			<td><input type="text" name="username" value=""></td> 
+		</tr>
+		<tr>
+			<td>Password</td>
+			<td><input type="text" name="password" value=""></td> 
+		</tr>
+		<tr>
+			<td>Company</td>
+			<td><input type="text" name="company" value=""></td> 
+		</tr>
+		<tr>
+			<td>First name</td>
+			<td><input type="text" name="firstName" value=""></td> 
+		</tr>
+		<tr>
+			<td>Last name</td>
+			<td><input type="text" name="lastName"value=""><br></td> 
+		</tr>
+		<tr>
+			<td colspan="2"  id="messagePanel"> </td> 
+		</tr>
+		<tr>
+			<td colspan="2"><input type="submit" value="Submit"></td>
+		</tr>
+	</table>
+</form>
+
+<script type="text/javascript">
+
+		$("#registartion_form").submit(function(e) {
+			var jsonData = mapFormToJson();
+			console.log(jsonData);
+			var serviceUrl = "/oms/services/user/register";
+			$.ajax({
+					url: serviceUrl,
+					type: "POST",
+					dataType: "json",
+					contentType: "application/json",
+					data: jsonData,
+
+					//handle success
+					success : function(data) {
+						messagePanel.style.color="white";
+						console.log(data);
+						messagePanel.innerHTML = "You succesfully completed registration. Your user Id is ...";
+						window.location.href = "login.htm";
+					},
+					
+					//handle error
+					error: function(data) { 
+						var errorCode =  data.responseJSON.errors[0].errorCode;
+						var errorText =  data.responseJSON.errors[0].errorText;
+						console.log(errorCode+": "+errorText);
+						var messagePanel = document.getElementById("messagePanel");
+						messagePanel.innerHTML = errorText;
+						messagePanel.style.color="red";
+          }
+			});   
+			e.preventDefault();
+	});	
+
+</script>
+</body>
+</html>

@@ -1,0 +1,10 @@
+INSERT INTO products (name, current_price, total_value, status) VALUES ('product 1', '60.52', 1000000.00, 'open');
+INSERT INTO products (name, current_price, total_value, status) VALUES ('product 2', '44.24', 2000000.00, 'open');
+INSERT INTO products (name, current_price, total_value, status) VALUES ('product 3', '10.82', 3000000.00, 'closed');
+INSERT INTO products (name, current_price, total_value, status) VALUES ('product 4', '100.64', 5000000.00, 'open');
+INSERT INTO products (name, current_price, total_value, status) VALUES ('product 5', '80.33', 4000000.00, 'suspended');
+INSERT INTO products (name, current_price, total_value, status) VALUES ('product 6', '93.22', 2000000.00, 'open');
+INSERT INTO products (name, current_price, total_value, status) VALUES ('product 7', '28.76', 1000000.00, 'open');
+INSERT INTO products (name, current_price, total_value, status) VALUES ('product 8', '53.29', 7000000.00, 'open');
+INSERT INTO products (name, current_price, total_value, status) VALUES ('product 9', '45.64', 8000000.00, 'open');
+INSERT INTO products (name, current_price, total_value, status) VALUES ('product 10', '55.75', 9000000.00, 'open');

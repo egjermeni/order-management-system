@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script> -->
+	<script src="jquery-1.10.1.min.js"></script>
+	<script src="oms-commons.js"></script>
+	<link rel="stylesheet" type="text/css" href="oms-style.css"></link>	
+</head>
+
+<body>
+
+<div id="productsheader">Products available for trading. <a href="login.htm">Logout</a></div>
+<div id="productsContainer"></div><br>
+<div id="ordersheader">User product orders. <a href="placeorder.htm">Place an order</a></div>
+<div id="ordersContainer"></div><br>
+<div id="messagePanel"></div>
+
+</body>
+
+<script type="text/javascript">
+	
+	renderAvailableProducts("productsContainer");
+	renderUserOrders("ordersContainer");
+
+	function renderAvailableProducts(container){
+		var token = getCookie("oms.token");
+		console.log("token="+token);
+		var jsonData = '{ "token": "'+token+'" }'
+		console.log(jsonData);
+		var serviceUrl = "/oms/services/product";
+		$.ajax({
+				url: serviceUrl,
+				type: "POST",
+				dataType: "json",
+				contentType: "application/json",
+				
+				//handle success
+				data: jsonData,
+				success : function(data) {
+					console.log(data.products);
+					renderJsonData(data.products, container);
+				},
+				
+				//handle error
+				error: function(data) { 
+					var errorCode =  data.responseJSON.errors[0].errorCode;
+					var errorText =  data.responseJSON.errors[0].errorText;
+					console.log(errorCode+": "+errorText);
+					var messagePanel = document.getElementById("messagePanel");
+					messagePanel.innerHTML = errorText;
+					messagePanel.style.color="red";
+				}
+		});  
+	}
+
+
+	function renderUserOrders(container){
+		var token = getCookie("oms.token");
+		console.log("token="+token);
+		var jsonData = '{ "token": "'+token+'" }'
+		console.log(jsonData);
+		var serviceUrl = "/oms/services/user/orders";
+		$.ajax({
+				url: serviceUrl,
+				type: "POST",
+				dataType: "json",
+				contentType: "application/json",
+				
+				//handle success
+				data: jsonData,
+				success : function(data) {
+					console.log(data.orders.length);
+					renderJsonData(data.orders, container);
+				},
+				
+				//handle error
+				error: function(data) { 
+					var errorCode =  data.responseJSON.errors[0].errorCode;
+					var errorText =  data.responseJSON.errors[0].errorText;
+					console.log(errorCode+": "+errorText);
+					var messagePanel = document.getElementById("messagePanel");
+					messagePanel.innerHTML = errorText;
+					messagePanel.style.color="red";
+				}
+		});   
+	}
+	
+</script>
+
+</html>

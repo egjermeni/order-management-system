@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script> -->
+	<script src="jquery-1.10.1.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="oms-style.css"></link>		
+	<script type="text/javascript" src="oms-commons.js"></script>
+</head>
+
+<body>
+<form id="placeorder_form" >
+	<table id="placeorder_table">
+		<tr>
+			<th colspan="2">Place an order</th>
+		</tr>
+		<tr>
+			<td>Product Id</td>
+			<td><input type="text" name="productId" value=""></td> 
+		</tr>
+		<tr>
+			<td>Order Type (buy, sell)</td>
+			<td><input type="text" name="type"  value=""></td> 
+		</tr>
+		<tr>
+			<td>Price</td>
+			<td><input type="text" name="price" value=""></td> 
+		</tr>
+		<tr>
+			<td>Quantity</td>
+			<td><input type="text" name="quantity" value=""></td> 
+		</tr>
+		<tr>
+		<tr>
+			<td colspan="2"  id="messagePanel"> </td> 
+		</tr> 
+		<tr>
+		<td><input type="submit" value="Submit"></td>
+		<td><a href="product.htm">Products</a></td>		
+		</tr>
+	</table>
+</form>
+
+<script type="text/javascript">
+
+		$("#placeorder_form").submit(function(e) {
+			var token = getCookie("oms.token");
+			console.log("token="+token);
+			var jsonData = '{ "token": "'+token+'", ' + '"order": ' + mapFormToJson() +'}';
+			console.log(jsonData);
+			var serviceUrl = "/oms/services/user/placeorder";
+			$.ajax({
+					url: serviceUrl,
+					type: "POST",
+					dataType: "json",
+					contentType: "application/json",
+					data: jsonData,
+					
+					//handle success
+					success : function(data) {
+						console.log(data);
+						messagePanel.innerHTML = "Your order was succesfully placed. Order Id is ...";
+						window.location.href = "product.htm";
+					},
+					
+					//handle error
+					error: function(data) { 
+						var errorCode =  data.responseJSON.errors[0].errorCode;
+						var errorText =  data.responseJSON.errors[0].errorText;
+						console.log(errorCode+": "+errorText);
+						var messagePanel = document.getElementById("messagePanel");
+						messagePanel.innerHTML = errorText;
+						messagePanel.style.color="red";
+          }
+			});   
+			e.preventDefault();
+	});	
+	
+</script>
+</body>
+</html>

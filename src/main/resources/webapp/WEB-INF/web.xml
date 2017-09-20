@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<web-app 
+	version="2.5" 
+	xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+	http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+
+ 	<display-name>server</display-name>
+	
+	<context-param>
+		<param-name>webAppRootKey</param-name>
+		<param-value>server.root</param-value>
+	</context-param>
+	
+	<listener>
+	    <listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
+	</listener>
+	
+	<listener>
+	    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+   
+   <listener>
+   		<listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+   </listener>
+
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>
+			/WEB-INF/context-dao.xml
+			/WEB-INF/context-service.xml
+			/WEB-INF/context-cxf.xml
+		</param-value>
+	</context-param>
+
+    <servlet>  
+        <servlet-name>cxf-servlet</servlet-name>  
+        <servlet-class>org.apache.cxf.transport.servlet.CXFServlet </servlet-class>  
+        <load-on-startup>1</load-on-startup>  
+    </servlet>  
+ 	  
+  	<servlet-mapping>
+    	<servlet-name>cxf-servlet</servlet-name>
+    	<url-pattern>/services/*</url-pattern>
+  	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>registration_page</servlet-name>
+		<jsp-file>/registration.htm</jsp-file>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>registration_page</servlet-name>
+		<url-pattern>/page/registration</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>login_page</servlet-name>
+		<jsp-file>/login.htm</jsp-file>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>login_page</servlet-name>
+		<url-pattern>/page/login</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>product_page</servlet-name>
+		<jsp-file>/product.htm</jsp-file>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>product_page</servlet-name>
+		<url-pattern>/page/product</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>placeorder_page</servlet-name>
+		<jsp-file>/placeorder.htm</jsp-file>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>placeorder_page</servlet-name>
+		<url-pattern>/page/placeorder</url-pattern>
+	</servlet-mapping>
+
+	<welcome-file-list>
+	    <welcome-file>/login.htm</welcome-file>
+	</welcome-file-list>
+
+</web-app>
+ 
