@@ -11,9 +11,9 @@ http://localhost:8080/oms/page/placeorder.htm
 
 Server side rest services 
 POST http://localhost:8080/oms/services/user/register 
-POST http://localhost:8080/oms/services/product
 POST http://localhost:8080/oms/services/user/orders
-POST http://localhost:8080/oms/user/placeorder 
+POST http://localhost:8080/oms/services/user/placeorder 
+POST http://localhost:8080/oms/services/product
 
 Also, have provided simple soap ui tests for interacting directly with web services
 /src/test/resources/soapui-project-01.xml
