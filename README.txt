@@ -1,7 +1,7 @@
 This test coding exercise was designed and implemented according to 
 specification given in "OMS_candidate.docx" document for UBS.
 I have build client and server side  order-management-system 
-To develop it I used java, maven, spring, cxf, hibernate, javascript, jquery and mokito for unit test. 
+To develop it I used java, maven, spring, cxf, jpa, hibernate, javascript, jquery and mokito for unit test. 
 
 Client side html pages
 http://localhost:8080/oms/page/login.htm
